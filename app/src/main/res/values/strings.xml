@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Financial scheduler</string>
+    <string name="hint_transaction_name">Transaction name…</string>
+    <string name="hint_transaction_rate">Rate…</string>
+    <string name="hint_transaction_category">Category</string>
+    <string name="text_date_time_switch">Set Date/Time</string>
+    <string name="text_income_expense_switch">Income/Expense</string>
+    <string name="text_create_transaction_button">Create operation</string>
+    <string name="clear_generation_form">Clear form</string>
+    <string name="remove_transaction_button">remove</string>
+    <string name="category_icon_description">category icon</string>
+    <string name="restore_altering_form">Restore previous</string>
+    <string name="alter_transaction_button">Alter</string>
+    <string name="alter_date">Alter Date</string>
+</resources>

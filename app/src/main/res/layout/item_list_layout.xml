@@ -32,8 +32,8 @@
 
         <ImageView
             android:id="@+id/category_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="@string/category_icon_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,9 +41,9 @@
         <TextView
             android:id="@+id/transaction_name"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="40dp"
-            android:textSize="22sp"
+            android:layout_height="40dp"
+            android:layout_marginStart="60dp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textAlignment="viewStart"
@@ -55,11 +55,11 @@
         <TextView
             android:id="@+id/transaction_category"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginStart="60dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="2dp"
             android:textAlignment="viewStart"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/category_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -72,10 +72,13 @@
             android:layout_height="30dp"
             android:layout_marginEnd="8dp"
             android:textAlignment="viewEnd"
-            android:textSize="18sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.5"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

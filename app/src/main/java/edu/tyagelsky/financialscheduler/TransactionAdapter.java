@@ -72,7 +72,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.rate.setTextColor(Color.rgb(110  ,193,117));
         } else {
             holder.rate.setText("-".concat(rateText).concat(" $"));
-            //holder.rate.setTextColor(Color.RED);
+            holder.rate.setTextColor(Color.WHITE);
         }
 
         // Handle delete button click

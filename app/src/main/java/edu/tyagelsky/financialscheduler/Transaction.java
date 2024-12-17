@@ -8,13 +8,18 @@ import androidx.annotation.NonNull;
 import java.lang.ref.Cleaner;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Transaction implements Parcelable
 {
 
-    public static final List<Transaction> transactions = new ArrayList<>(20);
+    private static int launchChecker = 0;
+
+    private static final Map<Long,Transaction> transactions = new HashMap<>(20);
+
 
     private static final Cleaner cleaner = Cleaner.create();
     private final Cleaner.Cleanable cleanable;
@@ -44,7 +49,7 @@ public class Transaction implements Parcelable
                                                 LocalDate trDate)
     {
         final Transaction transaction = new Transaction(trName, trCategory, trRate, trDate);
-        transactions.add(transaction);
+        transactions.put(transaction.getObjectID(), transaction);
         return transaction;
     }
 
@@ -54,7 +59,7 @@ public class Transaction implements Parcelable
         {
             final Long trObjectID = sourceParcel.readLong();
 
-            return transactions.stream().filter(tr -> tr.getObjectID().equals(trObjectID)).findFirst().orElseThrow();
+            return transactions.get(trObjectID);
         }
 
         @Override
@@ -138,6 +143,18 @@ public class Transaction implements Parcelable
     @Override
     public int hashCode() {
         return Objects.hashCode(objectID);
+    }
+
+    public static void launchList(final List<Transaction> trList)
+    {
+        if(launchChecker == 0)
+        {
+            transactions.clear();
+            trList.forEach(transaction -> transactions.putIfAbsent(transaction.getObjectID(),transaction));
+            launchChecker++;
+        }
+        else
+            throw new RuntimeException();
     }
 
 }

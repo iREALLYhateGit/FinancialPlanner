@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity
         dbHelper = new DatabaseHelper(this);
         transactionList = TransactionDao.getAllTransactions(dbHelper);
 
+        Transaction.launchList(transactionList);
+
         recyclerView = findViewById(R.id.recyclerView);
         emptyView = findViewById(R.id.emptyView);
         addTransactionButton = findViewById(R.id.add_item_button);

@@ -1,10 +1,5 @@
 package edu.tyagelsky.financialscheduler;
 
-import static android.app.Activity.RESULT_OK;
-import static androidx.activity.result.ActivityResultCallerKt.registerForActivityResult;
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -14,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -32,7 +25,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     private final ActivityResultLauncher<Intent> updateTrLauncher;
 
-    interface OnDeleteClickListener
+    public interface OnDeleteClickListener
     {
         void onDeleteClick(int position);
     }

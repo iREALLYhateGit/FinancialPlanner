@@ -13,4 +13,11 @@
     <string name="alter_transaction_button">Alter</string>
     <string name="alter_date">Alter Date</string>
     <string name="main_activity_title">✨My financial planner✨</string>
+    <string name="filter_period_title">Choose period</string>
+    <string name="back_to_main">Back to Main</string>
+    <string name="new_category_name">Enter new category name</string>
+    <string name="btn_filter_by_period">Filter by period</string>
+    <string name="btn_generate_category">category++</string>
+    <string name="create_category">Create</string>
+    <string name="category_generation_title">Create new category</string>
 </resources>

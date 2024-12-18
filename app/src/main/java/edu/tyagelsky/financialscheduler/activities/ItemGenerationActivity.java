@@ -1,4 +1,4 @@
-package edu.tyagelsky.financialscheduler;
+package edu.tyagelsky.financialscheduler.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,12 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
+
+import edu.tyagelsky.financialscheduler.R;
+import edu.tyagelsky.financialscheduler.Transaction;
+import edu.tyagelsky.financialscheduler.TransactionCategoryFactory;
+import edu.tyagelsky.financialscheduler.TransactionCategoryWrapper;
+import edu.tyagelsky.financialscheduler.TypeOfOperation;
 
 public class ItemGenerationActivity extends AppCompatActivity
 {
@@ -104,6 +110,7 @@ public class ItemGenerationActivity extends AppCompatActivity
         trCategoryInputAdapterIncome.setDropDownViewResource(
                 //android.R.layout.simple_spinner_dropdown_item);
                 R.layout.spinner_dropdown_layout);
+
         trCategoryInputAdapterExpense.setDropDownViewResource(
                 //android.R.layout.simple_spinner_dropdown_item);
                 R.layout.spinner_dropdown_layout);

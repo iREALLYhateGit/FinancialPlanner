@@ -17,19 +17,22 @@ import java.util.stream.Collectors;
 
 import edu.tyagelsky.financialscheduler.exceptions.CategoryAlreadyExistsException;
 import edu.tyagelsky.financialscheduler.exceptions.CategoryParsingException;
-import edu.tyagelsky.financialscheduler.exceptions.NoSuchCategoryException;
 
 public final class TransactionCategoryFactory
 {
+    private static int launchChecker = 0;
+
     public static class TransactionCategory implements ITransactionCategory
     {
+
         @NotNull
         private final String categoryName;
         @NotNull
         private final TypeOfOperation typeOfOperation;
 
         private TransactionCategory(@NotNull String categoryName,
-                                    @NotNull TypeOfOperation typeOfOperation) {
+                                    @NotNull TypeOfOperation typeOfOperation)
+        {
             this.categoryName = categoryName;
             this.typeOfOperation = typeOfOperation;
         }
@@ -49,8 +52,8 @@ public final class TransactionCategoryFactory
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            TransactionCategory transactionCategory = (TransactionCategory) o;
-            return Objects.equals(categoryName, transactionCategory.categoryName) && typeOfOperation == transactionCategory.typeOfOperation;
+            TransactionCategory that = (TransactionCategory) o;
+            return Objects.equals(categoryName, that.categoryName) && typeOfOperation == that.typeOfOperation;
         }
 
         @Override
@@ -106,28 +109,29 @@ public final class TransactionCategoryFactory
             );
 
 
-    public final static List<TransactionCategory> categories = new ArrayList<>(defaultCategories);
+    public final static List<TransactionCategory> categories = new ArrayList<>(20);
 
-    public static void createCategory(final String categoryName,
+    public static TransactionCategory createCategory(final String categoryName,
                                final TypeOfOperation typeOfOperation)
             throws CategoryAlreadyExistsException
     {
         final TransactionCategory newTransactionCategory = new TransactionCategory(categoryName, typeOfOperation);
         if (!categories.contains(newTransactionCategory))
+        {
             categories.add(newTransactionCategory);
+            return newTransactionCategory;
+        }
         else
             throw new CategoryAlreadyExistsException(newTransactionCategory);
     }
 
-    public static TransactionCategory extractCategory(final String categoryName,
-                                                      final TypeOfOperation typeOfOperation) throws NoSuchCategoryException
+    public static TransactionCategory obtainCategory(final String categoryName,
+                                                     final TypeOfOperation typeOfOperation)
     {
-        final TransactionCategory transactionCategory = new TransactionCategory(categoryName, typeOfOperation);
-        if (categories.contains(transactionCategory))
-            return transactionCategory;
-        else
-            throw new NoSuchCategoryException(transactionCategory);
-
+        final TransactionCategory newTransactionCategory = new TransactionCategory(categoryName, typeOfOperation);
+        if (!categories.contains(newTransactionCategory))
+            categories.add(newTransactionCategory);
+        return newTransactionCategory;
     }
 
     public static Collection<TransactionCategory> getDefaultCategoriesUnmodifiableList()
@@ -141,6 +145,18 @@ public final class TransactionCategoryFactory
                 filter(category -> category.getTypeOfOperation().equals(typeOfOperation)).
                 collect(Collectors.toList()));
     }
+
+    public static void launchList(final List<TransactionCategory> catList)
+    {
+        if (launchChecker == 0)
+        {
+            categories.clear();
+            categories.addAll(defaultCategories);
+            categories.addAll(catList);
+            launchChecker++;
+        }
+    }
+
 
     public static class CategoryIconCode
     {

@@ -1,10 +1,12 @@
-package edu.tyagelsky.financialscheduler;
+package edu.tyagelsky.financialscheduler.activities;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -15,8 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.tyagelsky.financialscheduler.R;
+import edu.tyagelsky.financialscheduler.Transaction;
+import edu.tyagelsky.financialscheduler.TransactionAdapter;
+import edu.tyagelsky.financialscheduler.TransactionCategoryFactory;
+import edu.tyagelsky.financialscheduler.db.CategoryDao;
 import edu.tyagelsky.financialscheduler.db.DatabaseHelper;
 import edu.tyagelsky.financialscheduler.db.TransactionDao;
 
@@ -28,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     private TransactionAdapter transactionAdapter;
     private List<Transaction> transactionList;
     private FloatingActionButton addTransactionButton;
+    private Button buttonFilterByDate;
+    private Button buttonCreateCategory;
 
     private ActivityResultLauncher<Intent> itemGenerationLauncher;
     private ActivityResultLauncher<Intent> updateTrLauncher;
@@ -45,13 +55,16 @@ public class MainActivity extends AppCompatActivity
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         dbHelper = new DatabaseHelper(this);
-        transactionList = TransactionDao.getAllTransactions(dbHelper);
 
+        TransactionCategoryFactory.launchList(CategoryDao.getAllCategories(dbHelper));
+        transactionList = TransactionDao.getAllTransactions(dbHelper);
         Transaction.launchList(transactionList);
 
         recyclerView = findViewById(R.id.recyclerView);
         emptyView = findViewById(R.id.emptyView);
         addTransactionButton = findViewById(R.id.add_item_button);
+        buttonFilterByDate = findViewById(R.id.button_filter);
+        buttonCreateCategory = findViewById(R.id.btn_generate_category);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -104,6 +117,18 @@ public class MainActivity extends AppCompatActivity
         addTransactionButton.setOnClickListener(v -> {
             final Intent intent = new Intent(MainActivity.this, ItemGenerationActivity.class);
             itemGenerationLauncher.launch(intent); // Use the launcher
+        });
+
+        buttonFilterByDate.setOnClickListener(v ->
+        {
+            final Intent intent = new Intent(MainActivity.this, FilterTransactionsActivity.class);
+            startActivity(intent);
+        });
+
+        buttonCreateCategory.setOnClickListener( v ->
+        {
+            final Intent intent = new Intent(MainActivity.this, GenerateCategoryActivity.class);
+            startActivity(intent);
         });
 
     }

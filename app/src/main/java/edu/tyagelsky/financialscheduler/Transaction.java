@@ -43,6 +43,20 @@ public class Transaction implements Parcelable
         this.trDate = trDate;
     }
 
+    private Transaction(Long objectID,
+                        String trName,
+                        TransactionCategoryFactory.TransactionCategory trCategory,
+                        double trRate,
+                        LocalDate trDate)
+    {
+        this.objectID = objectID;
+        this.cleanable = cleaner.register(this, () -> IDGenerator.removeID(objectID));
+        this.trName = trName;
+        this.trCategory = trCategory;
+        this.trRate = trRate;
+        this.trDate = trDate;
+    }
+
     public static Transaction createNewTransaction(String trName,
                                                 TransactionCategoryFactory.TransactionCategory trCategory,
                                                 double trRate,
@@ -50,6 +64,23 @@ public class Transaction implements Parcelable
     {
         final Transaction transaction = new Transaction(trName, trCategory, trRate, trDate);
         transactions.put(transaction.getObjectID(), transaction);
+        return transaction;
+    }
+
+    public static Transaction createTrueTransaction(Long trID,
+                                                    String trName,
+                                                   TransactionCategoryFactory.TransactionCategory trCategory,
+                                                   double trRate,
+                                                   LocalDate trDate)
+    {
+        final Transaction transaction;
+        if(!transactions.containsKey(trID))
+        {
+            transaction = new Transaction(trID, trName, trCategory, trRate, trDate);
+            transactions.put(transaction.getObjectID(), transaction);
+        }
+        else
+            transaction = transactions.get(trID);
         return transaction;
     }
 
@@ -147,14 +178,10 @@ public class Transaction implements Parcelable
 
     public static void launchList(final List<Transaction> trList)
     {
-        if(launchChecker == 0)
-        {
+        if (launchChecker == 0) {
             transactions.clear();
-            trList.forEach(transaction -> transactions.putIfAbsent(transaction.getObjectID(),transaction));
+            trList.forEach(transaction -> transactions.putIfAbsent(transaction.getObjectID(), transaction));
             launchChecker++;
         }
-        else
-            throw new RuntimeException();
     }
-
 }

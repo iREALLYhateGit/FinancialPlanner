@@ -22,6 +22,7 @@ public final class TransactionDao
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         final ContentValues values = new ContentValues();
 
+        values.put(DatabaseHelper.COLUMN_ID, finTransaction.getObjectID());
         values.put(DatabaseHelper.COLUMN_NAME, finTransaction.getTrName());
         values.put(DatabaseHelper.COLUMN_CATEGORY, finTransaction.getTrCategory().toString());
         values.put(DatabaseHelper.COLUMN_RATE, finTransaction.getTrRate());
@@ -41,17 +42,20 @@ public final class TransactionDao
         if (cursor.moveToFirst())
         {
             do {
+                final Long ID = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
                 final String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NAME));
                 final String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY));
                 final double rate = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_RATE));
                 final String date = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_DATE));
 
-                final Transaction transaction = Transaction.createNewTransaction(
+                final Transaction transaction = Transaction.createTrueTransaction(
+                        ID,
                         name,
                         TransactionCategoryFactory.TransactionCategory.parseCategory(category),
                         rate,
                         LocalDate.parse(date)
                 );
+
                 transactions.add(transaction);
             } while (cursor.moveToNext());
         }

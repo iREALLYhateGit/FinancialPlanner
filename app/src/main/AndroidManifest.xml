@@ -25,6 +25,7 @@
         <activity android:name=".activities.ItemGenerationActivity"/>
         <activity android:name=".activities.FilterTransactionsActivity" android:exported="true"/>
         <activity android:name=".activities.GenerateCategoryActivity" android:exported="true"/>
+        <activity android:name=".activities.ItemAlterActivity" android:exported="true"/>
     </application>
 
 </manifest>

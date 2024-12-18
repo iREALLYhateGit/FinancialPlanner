@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Locale;
 
-import edu.tyagelsky.financialscheduler.db.TransactionDao;
+import edu.tyagelsky.financialscheduler.activities.ItemAlterActivity;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.OperationViewHolder>
 {

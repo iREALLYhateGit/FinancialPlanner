@@ -1,4 +1,4 @@
-package edu.tyagelsky.financialscheduler;
+package edu.tyagelsky.financialscheduler.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,11 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
+import edu.tyagelsky.financialscheduler.R;
+import edu.tyagelsky.financialscheduler.Transaction;
+import edu.tyagelsky.financialscheduler.TransactionCategoryFactory;
+import edu.tyagelsky.financialscheduler.TransactionCategoryWrapper;
+import edu.tyagelsky.financialscheduler.TypeOfOperation;
 import edu.tyagelsky.financialscheduler.db.DatabaseHelper;
 import edu.tyagelsky.financialscheduler.db.TransactionDao;
 
